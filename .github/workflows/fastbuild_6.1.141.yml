@@ -299,12 +299,8 @@ jobs:
             cp ./susfs4ksu/kernel_patches/fs/* ./common/fs/
             cp ./susfs4ksu/kernel_patches/include/linux/* ./common/include/linux/
             cd ./common
-            cp security/selinux/hooks.c /tmp/hooks.c.orig
-            cp security/selinux/selinuxfs.c /tmp/selinuxfs.c.orig
             patch -p1 -F 3 < 50_add_susfs_in_gki-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_VERSION }}.patch || true
             patch -p1 -N -F 3 < 69_hide_stuff.patch || true
-            cp /tmp/hooks.c.orig security/selinux/hooks.c
-            cp /tmp/selinuxfs.c.orig security/selinux/selinuxfs.c
             cd ..
           else
             echo "已选择无内置KernelSU模式，跳过susfs配置..."
